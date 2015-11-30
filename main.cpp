@@ -33,9 +33,21 @@ int main(int argc, char** argv) {
   uint64_t n_SynapsesInDatasets =0;
   uint64_t n_memSynapses =0;
   
+  int c;
+  
+  while ((c = getopt (argc, argv, "f:")) != -1)
+    switch (c)
+    {
+      case 'f':
+	  syn_filename = optarg;
+	break;
+      default:
+	break;
+    }
+  
   H5SynapsesLoader synloader(syn_filename,n_readSynapses,n_SynapsesInDatasets);
   
-  int c;
+  
   
   uint64_t b = -1;
   uint64_t e = -1;
@@ -51,6 +63,9 @@ int main(int argc, char** argv) {
       case 'e':
 	  e = (uint64_t)atoi(optarg)*(uint64_t)1e6*(uint64_t)1e4;
 	  synloader.setLastSyn(e);
+	break;
+      case 'f':
+	  syn_filename = optarg;
 	break;
       default:
 	break;
